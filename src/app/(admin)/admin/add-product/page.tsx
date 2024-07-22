@@ -6,6 +6,11 @@ import { RawColor } from "../list-color/page";
 import { Brand } from "../list-brand/_components/Column";
 import { Category } from "../list-category/_components/Column";
 import { Color } from "../list-color/_components/Column";
+import dynamic from "next/dynamic";
+
+const AddProductFormWithNoSSR = dynamic(() => import("./AddProductForm"), {
+	ssr: false,
+});
 
 const getBrands = async () => {
 	const res = await axios.get("/brand");
@@ -55,7 +60,7 @@ const AddProductPage = async () => {
 
 	return (
 		<div className="w-full min-h-screen">
-			<AddProductForm
+			<AddProductFormWithNoSSR
 				brands={formattedBrands}
 				categories={formattedCategories}
 				colors={formattedColors}
