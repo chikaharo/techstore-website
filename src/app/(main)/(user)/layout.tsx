@@ -1,8 +1,9 @@
 "use client";
+import LoadingModal from "@/components/LoadingModal";
 import { getServerSession } from "next-auth/next";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, Suspense, useEffect } from "react";
 
 const ProtectedUserLayout = ({
 	children,
@@ -19,7 +20,11 @@ const ProtectedUserLayout = ({
 		}
 	}, []);
 
-	return <>{children}</>;
+	return (
+		<>
+			<Suspense fallback={<LoadingModal />}>{children}</Suspense>
+		</>
+	);
 };
 
 export default ProtectedUserLayout;

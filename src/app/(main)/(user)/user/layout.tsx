@@ -1,3 +1,4 @@
+import LoadingModal from "@/components/LoadingModal";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import {
 	HeartIcon,
@@ -5,7 +6,7 @@ import {
 	UserIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 
 const UserLayout = ({ children }: { children: ReactNode }) => {
 	return (
@@ -37,7 +38,9 @@ const UserLayout = ({ children }: { children: ReactNode }) => {
 						</Link>
 					</div>
 				</div>
-				<div className="flex flex-1 flex-col">{children}</div>
+				<div className="flex flex-1 flex-col">
+					<Suspense fallback={<LoadingModal />}>{children}</Suspense>
+				</div>
 			</div>
 		</MaxWidthWrapper>
 	);
