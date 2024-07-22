@@ -21,7 +21,7 @@ import {
 import Link from "next/link";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import qs from "query-string";
 import { Slider } from "@/components/ui/slider";
 import axios from "@/lib/axios";
@@ -177,7 +177,6 @@ const ProductsPage = () => {
 	}, [filters, getProducts]);
 
 	return (
-		// <MaxWidthWrapper className="">
 		<div className="flex pb-6 pt-12">
 			<div className="flex min-w-[200px] md:min-w-[250px] flex-col px-4 lg:px-8 flex-shrink-0">
 				<ul className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-slate-800">
@@ -366,4 +365,10 @@ const ProductsPage = () => {
 	);
 };
 
-export default ProductsPage;
+export default function ProductsPageWithSuspense() {
+	return (
+		<Suspense>
+			<ProductsPage />
+		</Suspense>
+	);
+}

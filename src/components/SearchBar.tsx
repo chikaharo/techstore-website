@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 import { Input } from "./ui/input";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, Suspense, useState } from "react";
 import { Button } from "./ui/button";
 import { Command, CommandInput } from "cmdk";
 import { Popover, PopoverContent } from "./ui/popover";
@@ -56,4 +56,10 @@ const SearchBar = ({ className }: Props) => {
 	);
 };
 
-export default SearchBar;
+export default function SearchBarWithSuspense({ className }: Props) {
+	return (
+		<Suspense>
+			<SearchBar className={className} />
+		</Suspense>
+	);
+}

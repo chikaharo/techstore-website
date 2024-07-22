@@ -20,7 +20,7 @@ import { Separator } from "@/components/ui/separator";
 import { redirect, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "next-auth/react";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import Link from "next/link";
 import {
@@ -30,7 +30,7 @@ import {
 	InputOTPSlot,
 } from "@/components/ui/input-otp";
 
-const VerifyPage = () => {
+const VerifyPage: React.FC = () => {
 	const searchParams = useSearchParams();
 	const emailParams = searchParams.get("email");
 	const router = useRouter();
@@ -48,9 +48,9 @@ const VerifyPage = () => {
 	});
 	const { toast } = useToast();
 
-	if (!emailParams) {
-		return router.push("/");
-	}
+	// if (!emailParams) {
+	// 	return router.push("/");
+	// }
 
 	const resendOtp = async () => {
 		try {
@@ -174,4 +174,10 @@ const VerifyPage = () => {
 	);
 };
 
-export default VerifyPage;
+export default function VerifyPageWithSuspense() {
+	return (
+		<Suspense>
+			<VerifyPage />
+		</Suspense>
+	);
+}
