@@ -21,7 +21,7 @@ import {
 import Link from "next/link";
 import { useParams, usePathname, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import qs from "query-string";
 import { Slider } from "@/components/ui/slider";
 import axios from "@/lib/axios";
@@ -107,20 +107,25 @@ const ProductsPage = () => {
 	const [countPages, setCountPages] = useState(0);
 	const { toast } = useToast();
 
-	const minPrice = Math.min(filters.price.value[0], filters.price.value[1]);
-	const maxPrice = Math.max(filters.price.value[0], filters.price.value[1]);
+	const minPrice = Math.min(filters!.price!.value[0], filters!.price!.value[1]);
+	const maxPrice = Math.max(filters!.price!.value[0], filters!.price!.value[1]);
 
 	const applyArrayFilter = (cat: string, value: string) => {
+		// @ts-ignore
 		const isFilterApplied = filters[cat].findIndex((item) => item === value);
 
 		if (isFilterApplied !== -1) {
 			setFilters((prev) => ({
 				...prev,
+				// @ts-ignore
+
 				[cat]: prev[cat].filter((v) => v !== value),
 			}));
 		} else {
 			setFilters((prev) => ({
 				...prev,
+				// @ts-ignore
+
 				[cat]: [...prev[cat], value],
 			}));
 		}
@@ -133,7 +138,7 @@ const ProductsPage = () => {
 		setFilters((prev) => ({ ...prev, page }));
 	};
 
-	const getProducts = async () => {
+	const getProducts = useCallback(async () => {
 		setLoading(true);
 		try {
 			const query = {
@@ -145,7 +150,9 @@ const ProductsPage = () => {
 			console.log({ queryString });
 
 			const res = await axios.get(
-				`/product?${queryString}&price[gte]=${filters.price.value[0]}&price[lte]=${filters.price.value[1]}`
+				`/product?${queryString}&price[gte]=${
+					filters.price!.value[0]
+				}&price[lte]=${filters.price!.value[1]}`
 			);
 			console.log("filter products: ", res.data);
 			if (res.data.status !== "success") {
@@ -154,7 +161,7 @@ const ProductsPage = () => {
 			setProducts(res.data.data.products);
 			const count = Math.floor(res.data.data.count / LIMIT_PER_PAGE) + 1;
 			setCountPages(count);
-		} catch (error) {
+		} catch (error: any) {
 			console.log(error);
 			toast({
 				title: error?.message,
@@ -162,12 +169,12 @@ const ProductsPage = () => {
 			});
 		}
 		setLoading(false);
-	};
+	}, []);
 
 	useEffect(() => {
 		console.log({ filters });
 		getProducts();
-	}, [filters]);
+	}, [filters, getProducts]);
 
 	return (
 		// <MaxWidthWrapper className="">
@@ -222,9 +229,11 @@ const ProductsPage = () => {
 										<input
 											type="radio"
 											onChange={() =>
+												// @ts-ignore
+
 												setFilters((prev) => ({ ...prev, price: option }))
 											}
-											checked={filters.price.value === option.value}
+											checked={filters.price!.value === option.value}
 											id={option.title}
 											className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
 										/>
@@ -237,9 +246,15 @@ const ProductsPage = () => {
 									<div className="flex items-center justify-between mb-4">
 										<p>Price:</p>
 										<div>
-											{Math.min(filters.price.value[0], filters.price.value[1])}{" "}
+											{Math.min(
+												filters.price!.value[0],
+												filters.price!.value[1]
+											)}{" "}
 											-{" "}
-											{Math.max(filters.price.value[0], filters.price.value[1])}
+											{Math.max(
+												filters.price!.value[0],
+												filters.price!.value[1]
+											)}
 										</div>
 									</div>
 									<Slider
@@ -256,7 +271,7 @@ const ProductsPage = () => {
 												},
 											}));
 										}}
-										value={filters.price.value}
+										value={filters.price!.value}
 										min={DEFAULT_PRICE[0]}
 										max={DEFAULT_PRICE[1]}
 										defaultValue={DEFAULT_PRICE}
@@ -311,6 +326,7 @@ const ProductsPage = () => {
 					{!loading &&
 						products.length &&
 						products.map((product) => (
+							// @ts-ignore
 							<ProductCard key={product._id} data={product} />
 						))}
 				</div>

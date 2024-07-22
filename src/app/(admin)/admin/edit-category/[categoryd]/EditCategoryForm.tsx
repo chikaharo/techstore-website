@@ -18,12 +18,6 @@ import { Brand } from "../../list-brand/_components/Column";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 
-export interface Category {
-	id: string;
-	title: string;
-	createdAt: string;
-}
-
 interface Props {
 	category: Category;
 }
@@ -53,7 +47,7 @@ const EditCategoryForm = ({ category }: Props) => {
 			}
 			toast({ title: "Update Category Successfully" });
 			router.push("/admin/list-brand");
-		} catch (error) {
+		} catch (error: any) {
 			toast({ title: error.message, variant: "destructive" });
 
 			console.log("update category error: ", error);

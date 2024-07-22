@@ -40,7 +40,7 @@ const AddColor = () => {
 			toast("Create New Color Successfully", {
 				className: "bg-green-600 ",
 			});
-		} catch (error) {
+		} catch (error: any) {
 			toast("Create New Color Failed", {
 				className: "bg-red-600 text-white",
 			});

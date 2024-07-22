@@ -48,7 +48,7 @@ const EditBrandForm = ({ brand }: Props) => {
 			router.refresh();
 			router.push("/admin/list-brand");
 			toast({ title: "Update New Brand Successfully" });
-		} catch (error) {
+		} catch (error: any) {
 			toast({
 				title: error.message,
 				variant: "destructive",

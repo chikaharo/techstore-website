@@ -7,11 +7,7 @@ import { PlusIcon, MinusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { formatCurrency } from "@/helpers/formatCurrency";
 
 interface Props {
-	item: {
-		product: Product;
-		color: Color;
-		quantity: number;
-	};
+	item: Cart;
 	loading: boolean;
 	incre: (prodId: string, colorId: string) => void;
 	decre: (prodId: string, colorId: string) => void;

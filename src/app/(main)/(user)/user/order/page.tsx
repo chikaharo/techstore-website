@@ -55,7 +55,7 @@ const OrderPage = () => {
 			const paymentUrl = paymentRes.data.data;
 			window.open(paymentUrl, "_blank");
 			router.refresh();
-		} catch (error) {
+		} catch (error: any) {
 			toast({ title: error.message, variant: "destructive" });
 
 			console.log("add category error: ", error);
@@ -83,7 +83,7 @@ const OrderPage = () => {
 			}
 			router.refresh();
 			toast({ title: "Cancel order successfully" });
-		} catch (error) {
+		} catch (error: any) {
 			toast({ title: error.message, variant: "destructive" });
 
 			console.log("cancel order error: ", error);
@@ -109,7 +109,7 @@ const OrderPage = () => {
 					throw new Error("Get orders failed");
 				}
 				setOrders(res.data.data);
-			} catch (error) {
+			} catch (error: any) {
 				toast({
 					title: error.message,
 					variant: "destructive",

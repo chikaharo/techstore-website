@@ -15,6 +15,12 @@ interface Order {
 	createdAt: string;
 }
 
+interface Category {
+	id: string;
+	title: string;
+	createdAt: string;
+}
+
 interface Product {
 	_id: string;
 	title: string;
@@ -40,9 +46,17 @@ interface Color {
 }
 
 interface Image {
+	asset_id?: string | null;
 	public_id: string;
 	url: string;
 	_id: string;
+}
+
+interface Cart {
+	_id: string;
+	color: Color;
+	product: Product;
+	quantity: number;
 }
 
 interface IFilters {
@@ -50,9 +64,27 @@ interface IFilters {
 	category?: string;
 	brand: string[];
 	sort: string;
-	price: {
+	price?: {
 		title: string;
 		value: [number, number];
 	};
 	page: number;
+}
+
+interface IProvinceData {
+	Id: string;
+	Name: string;
+	Districts: IDistrict[];
+}
+
+interface IDistrict {
+	Id: string;
+	Name: string;
+	Wards: IWard[];
+}
+
+interface IWard {
+	Id: string;
+	Name: string;
+	Level: string;
 }

@@ -20,34 +20,58 @@ import { Separator } from "@/components/ui/separator";
 import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { toast } from "sonner";
 import { isCamelCase } from "@/helpers/isCamelCase";
+import { useToast } from "@/components/ui/use-toast";
 
 const RegisterPage = () => {
 	const [loading, setLoading] = useState(false);
 	const router = useRouter();
-	const formSchema = z.object({
-		email: z.string().min(1, { message: "Email is required." }),
-		name: z.string().min(1, "Name is required"),
-		password: z
-			.string()
-			.min(6, { message: "Password required at least 6 characters" })
-			.refine(isCamelCase, {
-				message:
-					"Password must contain at least an upper letter, a number and a special character",
-			}),
-		password_confirmation: z
-			.string()
-			.min(6, { message: "Password required at least 6 characters" })
-			.refine((data) => data.password === data.password_confirmation, {
-				message: "Passwords do not match",
-				path: ["password_confirmation"],
-			})
-			.refine(isCamelCase, {
-				message:
-					"Password must contain at least an upper letter, a number and a special character",
-			}),
-	});
+	const { toast } = useToast();
+	const formSchema = z
+		.object({
+			email: z.string().min(1, { message: "Email is required." }),
+			name: z.string().min(1, "Name is required"),
+			password: z
+				.string()
+				.min(6, { message: "Password required at least 6 characters" })
+				.refine(isCamelCase, {
+					message:
+						"Password must contain at least an upper letter, a number and a special character",
+				}),
+			password_confirmation: z
+				.string()
+				.min(6, { message: "Password required at least 6 characters" })
+				.refine(isCamelCase, {
+					message:
+						"Password must contain at least an upper letter, a number and a special character",
+				}),
+		})
+		.refine((data) => data.password === data.password_confirmation, {
+			message: "Password don't match",
+			path: ["password", "password_confirmation"],
+		});
+	// const formSchema = z.object({
+	// 	email: z.string().min(1, { message: "Email is required." }),
+	// 	name: z.string().min(1, "Name is required"),
+	// 	password: z
+	// 		.string()
+	// 		.min(6, { message: "Password required at least 6 characters" })
+	// 		.refine(isCamelCase, {
+	// 			message:
+	// 				"Password must contain at least an upper letter, a number and a special character",
+	// 		}),
+	// 	password_confirmation: z
+	// 		.string()
+	// 		.min(6, { message: "Password required at least 6 characters" })
+	// 		.refine((val, ctx) => ctx.input.password === val, {
+	// 			message: "Passwords do not match",
+	// 			path: ["password_confirmation"],
+	// 		})
+	// 		.refine(isCamelCase, {
+	// 			message:
+	// 				"Password must contain at least an upper letter, a number and a special character",
+	// 		}),
+	// });
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -73,13 +97,16 @@ const RegisterPage = () => {
 			console.log(res);
 			router.push(`/verify?email=${res.data.data.email}`);
 			if (res.data.status !== "success") {
-				throw new Error(res?.error);
+				throw new Error("Register failed. Please try again");
 			}
-
+			toast({ title: "Register new account successfully" });
 			router.push("/login");
-		} catch (error) {
+		} catch (error: any) {
 			console.log("on Login error:", error);
-			toast("Email or password incorrect. Please try again ");
+			toast({
+				title: "Email or password incorrect. Please try again ",
+				variant: "destructive",
+			});
 		}
 		setLoading(false);
 	};

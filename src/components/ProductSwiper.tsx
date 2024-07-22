@@ -27,16 +27,16 @@ const ProductSwiper = ({ product }: Props) => {
 	const { toast } = useToast();
 	const { data: session } = useSession();
 
-	const handleAddWishlist = async (prodId: string) => {
+	const handleAddWishlist = async () => {
 		try {
 			const res = await axios.put(
 				"/product/wishlist",
 				{
-					prodId: prodId,
+					prodId: product._id,
 				},
 				{
 					headers: {
-						Authorization: `Bearer ${session?.user.accessToken}`,
+						Authorization: `Bearer ${session?.user?.accessToken}`,
 					},
 				}
 			);
@@ -46,7 +46,7 @@ const ProductSwiper = ({ product }: Props) => {
 			toast({
 				title: res.data.message,
 			});
-		} catch (error) {
+		} catch (error: any) {
 			console.log(error);
 			toast({
 				title: error.message,
@@ -70,7 +70,7 @@ const ProductSwiper = ({ product }: Props) => {
 			>
 				<HeartIcon
 					className="absolute top-2 left-2 w-6 h-6 cursor-pointer text-red-600 z-20 hover:scale-110"
-					onClick={() => handleAddWishlist(product._id)}
+					onClick={() => handleAddWishlist()}
 				/>
 
 				{product.images.map((img, index) => {
@@ -99,7 +99,7 @@ const ProductSwiper = ({ product }: Props) => {
 						);
 					} else {
 						return (
-							<SwiperSlide key={img}>
+							<SwiperSlide key={img.public_id}>
 								<div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 h-full w-full min-w-[718px] min-h-[398px] rounded-[10px]">
 									<div className="flex items-center w-full min-h-[398px] gap-2 p-4">
 										<div className="w-[350px] h-[350px] lg:w-[500px] lg:h-[500px] relative">

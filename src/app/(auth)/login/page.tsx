@@ -55,7 +55,7 @@ const LoginPage = () => {
 			console.log(res);
 
 			if (!res?.ok) {
-				throw new Error(res?.error);
+				throw new Error("Login failed. Please try again");
 			}
 			router.refresh();
 			router.push("/");
@@ -64,7 +64,7 @@ const LoginPage = () => {
 			// });
 			// console.log("response after: ", res1.data);
 			// router.push("/");
-		} catch (error) {
+		} catch (error: any) {
 			form.setError("email", {
 				type: "validate",
 				message: "Email or password incorrect",

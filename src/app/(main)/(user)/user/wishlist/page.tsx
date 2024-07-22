@@ -31,7 +31,7 @@ enum OrderStatus {
 
 const WishlistPage = () => {
 	const [loading, setLoading] = useState(false);
-	const [wishList, setWishlist] = useState([]);
+	const [wishList, setWishlist] = useState<Product[]>([]);
 	const { data: session } = useSession();
 	const router = useRouter();
 	const { toast } = useToast();
@@ -63,7 +63,7 @@ const WishlistPage = () => {
 				variant: "default",
 				title: "Add to Cart Successfully",
 			});
-		} catch (error) {
+		} catch (error: any) {
 			toast({ title: "Add to Cart Failed", variant: "destructive" });
 		}
 		setLoading(false);
@@ -90,7 +90,7 @@ const WishlistPage = () => {
 				title: res.data.message,
 			});
 			router.refresh();
-		} catch (error) {
+		} catch (error: any) {
 			console.log(error);
 			toast({
 				title: error.message,
@@ -118,7 +118,7 @@ const WishlistPage = () => {
 					throw new Error("Get wishlist error");
 				}
 				setWishlist(res.data.data);
-			} catch (error) {
+			} catch (error: any) {
 				console.log("fetch wisthlist error:", error);
 			}
 			setLoading(false);

@@ -36,7 +36,7 @@ const CeilAction = ({ product }: Props) => {
 			console.log("confirm delete product: ", res);
 			router.refresh();
 			toast("Deleted product successfully");
-		} catch (error) {
+		} catch (error: any) {
 			console.log("Delete product error: ", error);
 			toast("Deleted product failed");
 		}

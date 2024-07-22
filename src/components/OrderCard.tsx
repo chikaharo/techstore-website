@@ -19,7 +19,6 @@ import Image from "next/image";
 import { formatCurrency } from "@/helpers/formatCurrency";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { OrderStatus } from "@/types/global";
 
 enum OrderStatus {
 	Processing = "Processing",

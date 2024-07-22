@@ -33,7 +33,7 @@ const addToCart = async () => {
 };
 
 const ProductPage = async ({ params }: { params: { productId: string } }) => {
-	const product = await getProduct(params.productId);
+	const product: Product = await getProduct(params.productId);
 	console.log({ product });
 	// const test = await addToCart();
 
@@ -47,7 +47,7 @@ const ProductPage = async ({ params }: { params: { productId: string } }) => {
 				<ProductHeader title={product.title} />
 				<div className="flex flex-col lg:flex-row gap-4">
 					<div className="w-full lg:w-2/3">
-						<ProductSwiper prodId={product._id} />
+						<ProductSwiper product={product} />
 					</div>
 					<div className="w-full lg:w-1/3">
 						<ProductAction product={product} />

@@ -35,7 +35,7 @@ const AddBard = () => {
 			toast("Create New Brand Successfully", {
 				className: "bg-green-600 ",
 			});
-		} catch (error) {
+		} catch (error: any) {
 			toast("Create New Brand Failed", {
 				className: "bg-red-600 text-white",
 			});

@@ -13,6 +13,8 @@ const getProduct = async (slug: string) => {
 	// The return value is *not* serialized
 	// You can return Date, Map, Set, etc.
 
+	console.log("get product data: ", res.data);
+
 	if (!res.data) {
 		// This will activate the closest `error.js` Error Boundary
 		// throw new Error("Failed to fetch data");

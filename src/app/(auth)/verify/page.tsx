@@ -62,7 +62,7 @@ const VerifyPage = () => {
 				throw new Error("resend otp error");
 			}
 			toast({ title: "Resend Otp success. Please check your email" });
-		} catch (error) {
+		} catch (error: any) {
 			toast({ title: "Resend Otp failed", variant: "destructive" });
 		}
 	};
@@ -77,7 +77,7 @@ const VerifyPage = () => {
 			}
 			router.refresh();
 			router.push("/");
-		} catch (error) {
+		} catch (error: any) {
 			form.setError("otp", {
 				type: "validate",
 				message: "Otp is incorrect",

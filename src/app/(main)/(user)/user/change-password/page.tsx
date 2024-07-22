@@ -64,7 +64,7 @@ const ProfilePage = () => {
 				throw new Error("Update Password failed");
 			}
 			toast({ title: "Update Password Successfully" });
-		} catch (error) {
+		} catch (error: any) {
 			toast({ title: "Update Password Failed", variant: "destructive" });
 
 			console.log("add category error: ", error);

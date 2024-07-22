@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal, Link, PencilIcon, TrashIcon } from "lucide-react";
 import { useState } from "react";
-import { Category } from "./Column";
 import AlertModal from "@/components/ui/alert-modal";
 import axios from "@/lib/axios";
 import { toast } from "sonner";
@@ -36,7 +35,7 @@ const CeilAction = ({ category }: Props) => {
 			console.log("confirm delete color: ", res);
 			router.refresh();
 			toast("Deleted color successfully");
-		} catch (error) {
+		} catch (error: any) {
 			console.log("Delete category error: ", error);
 			toast("Deleted color failed");
 		}

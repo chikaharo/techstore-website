@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
-import { Product } from "@/app/(admin)/admin/list-product/_components/Column";
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
@@ -52,7 +51,7 @@ const ProductAction = ({ product }: Props) => {
 				variant: "default",
 				title: "Add to Cart Successfully",
 			});
-		} catch (error) {
+		} catch (error: any) {
 			toast({ title: error.message, variant: "destructive" });
 		}
 	};

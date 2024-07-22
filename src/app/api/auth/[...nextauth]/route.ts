@@ -37,7 +37,7 @@ const handler = NextAuth({
 					password,
 				};
 				const res = await fetch(
-					"http://localhost:2222/api/user/login/password",
+					`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/login/password`,
 					{
 						method: "POST",
 						headers: {

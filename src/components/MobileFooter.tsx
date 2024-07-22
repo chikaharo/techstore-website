@@ -8,7 +8,7 @@ import Link from "next/link";
 
 const MobileFooter = () => {
 	return (
-		<footer className="fixed z-100 bottom-0 left-0 right-0 h-20 lg:hidden w-full border-t-2 border-slate-800 p-2 bg-slate-700 text-white py-8">
+		<footer className="fixed z-1000 bottom-0 left-0 right-0 h-20 lg:hidden w-full border-t-2 border-slate-800 p-2 bg-slate-700 text-white py-8">
 			<div className="flex h-full items-center justify-around">
 				<Link
 					href="/"

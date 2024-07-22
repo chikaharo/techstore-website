@@ -12,7 +12,7 @@ import { useCallback, useEffect, useState } from "react";
 
 const CartPage = () => {
 	const { data: session } = useSession();
-	const [cartData, setCartData] = useState([]);
+	const [cartData, setCartData] = useState<Cart[]>([]);
 	const [loading, setLoading] = useState(false);
 	const totalPrice = cartData.reduce((acc, cur) => {
 		return (acc += cur.product.price * cur.quantity);
@@ -37,7 +37,7 @@ const CartPage = () => {
 				throw new Error("Add to cart failed");
 			}
 			getData();
-		} catch (error) {
+		} catch (error: any) {
 			toast({ title: error.message, variant: "destructive" });
 			console.log("handleAdd error:", error);
 		}
@@ -62,7 +62,7 @@ const CartPage = () => {
 				throw new Error("Minus from cart failed");
 			}
 			getData();
-		} catch (error) {
+		} catch (error: any) {
 			toast({ title: error.message, variant: "destructive" });
 
 			console.log("handleMinus error:", error);
@@ -87,7 +87,7 @@ const CartPage = () => {
 				throw new Error("Minus from cart failed");
 			}
 			getData();
-		} catch (error) {
+		} catch (error: any) {
 			toast({ title: error.message, variant: "destructive" });
 
 			console.log("handleDelete error:", error);
@@ -108,7 +108,7 @@ const CartPage = () => {
 				throw new Error("Get Cart Data failed");
 			}
 			setCartData(res.data.data);
-		} catch (error) {
+		} catch (error: any) {
 			toast({ title: error.message, variant: "destructive" });
 
 			console.log(error);

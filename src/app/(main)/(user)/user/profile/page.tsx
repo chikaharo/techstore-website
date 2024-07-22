@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import axios from "@/lib/axios";
+import { User } from "next-auth";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -9,7 +10,7 @@ import { useEffect, useState } from "react";
 const ProfilePage = () => {
 	const { data: session } = useSession();
 	const [loading, setLoading] = useState(false);
-	const [userData, setUserData] = useState();
+	const [userData, setUserData] = useState<User>();
 
 	useEffect(() => {
 		const getUserData = async () => {

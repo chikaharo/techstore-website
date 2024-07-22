@@ -1,7 +1,6 @@
 import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import ProductCard from "./ProductCard";
-import { Product } from "@/app/(admin)/admin/list-product/_components/Column";
 
 export interface Tag {
 	title: string;

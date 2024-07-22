@@ -1,5 +1,4 @@
 "use client";
-import { Product } from "@/app/(admin)/admin/list-product/_components/Column";
 import { Card, CardContent, CardFooter, CardTitle } from "./ui/card";
 import { cn } from "@/lib/utils";
 import { AspectRatio } from "./ui/aspect-ratio";
@@ -41,7 +40,7 @@ const ProductCard = ({ className, data }: Props) => {
 			toast({
 				title: res.data.message,
 			});
-		} catch (error) {
+		} catch (error: any) {
 			console.log(error);
 			toast({
 				title: error.message,

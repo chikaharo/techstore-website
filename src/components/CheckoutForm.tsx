@@ -36,8 +36,24 @@ interface Props {
 const CheckoutForm = ({ total }: Props) => {
 	const { data: session } = useSession();
 	const router = useRouter();
-	const [provinceData, setProvinceData] = useState([]);
-	const [districtsData, setDistrictsData] = useState([]);
+	const [provinceData, setProvinceData] = useState<IProvinceData[]>([]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const response = await axios.get(
+					"https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json"
+				);
+				console.log("response data: ", response);
+
+				setProvinceData(response.data);
+			} catch (error: any) {
+				console.error("Error fetching data:", error);
+			}
+		};
+		fetchData();
+	}, []);
+	const [districtsData, setDistrictsData] = useState<IDistrict[]>([]);
 	const formSchema = z.object({
 		name: z.string().min(1, { message: "Name is required." }),
 		phone: z
@@ -96,7 +112,7 @@ const CheckoutForm = ({ total }: Props) => {
 			}
 			const paymentUrl = paymentRes.data.data;
 			window.open(paymentUrl, "_blank");
-		} catch (error) {
+		} catch (error: any) {
 			toast({
 				title: error.message,
 				variant: "destructive",
@@ -114,8 +130,12 @@ const CheckoutForm = ({ total }: Props) => {
 				const response = await axios.get(
 					"https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json"
 				);
+				// const parsedData = await JSON.parse(response.data);
+				// console.log({ parsedData });
+				console.log("response data: ", response);
+
 				setProvinceData(response.data);
-			} catch (error) {
+			} catch (error: any) {
 				console.error("Error fetching data:", error);
 			}
 		};
@@ -192,11 +212,11 @@ const CheckoutForm = ({ total }: Props) => {
 											disabled={loading}
 										>
 											<SelectTrigger className="w-full">
-												<SelectValue placeholder="Select a brand" />
+												<SelectValue placeholder="Select a province" />
 											</SelectTrigger>
 											<SelectContent>
 												<SelectGroup>
-													{!provinceData && provinceData.length <= 0 ? (
+													{!provinceData ? (
 														<div className="h-8 w-full flex items-center justify-center">
 															No provinces yet
 														</div>
@@ -230,17 +250,17 @@ const CheckoutForm = ({ total }: Props) => {
 									<FormControl>
 										<Select onValueChange={field.onChange} disabled={loading}>
 											<SelectTrigger className="w-full">
-												<SelectValue placeholder="Select a brand" />
+												<SelectValue placeholder="Select a district" />
 											</SelectTrigger>
 											<SelectContent>
 												<SelectGroup>
 													{!form.getValues("province") ? (
 														<div className="h-8 w-full flex items-center justify-center">
-															No provinces yet
+															No disctrict yet
 														</div>
 													) : (
 														<>
-															<SelectLabel>Provinces</SelectLabel>
+															<SelectLabel>Districts</SelectLabel>
 															{districtsData.map((district) => (
 																<SelectItem
 																	key={district.Id}

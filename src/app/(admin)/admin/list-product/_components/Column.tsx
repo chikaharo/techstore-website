@@ -35,18 +35,18 @@ export type Product = {
 	brand: string;
 	quantity: number;
 	thumbnail: string;
-	tags: string;
+	tags?: string;
 	images: ProdImage[];
 	colors: Color[];
-	totalrating: string;
+	totalrating?: string;
 	ratings: [];
-	createdAt: string;
+	createdAt?: string;
 };
 
 export type ProdImage = {
 	url: string;
 	public_id: string;
-	asset_id: string;
+	asset_id: string | null;
 };
 
 export const columns: ColumnDef<Product>[] = [

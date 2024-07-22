@@ -8,7 +8,7 @@ const getCategoryData = async (id: string) => {
 		const res = await axios.get(`/category/${id}`);
 		console.log(res.data);
 		return res.data.data;
-	} catch (error) {
+	} catch (error: any) {
 		console.log(error);
 		// throw new Error("Failed to get Brand Data");
 	}

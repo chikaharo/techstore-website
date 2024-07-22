@@ -76,7 +76,7 @@ export async function fetchAuth({
 
 		// Return error message
 		return { ok: false, data: responseData };
-	} catch (error) {
+	} catch (error: any) {
 		// todo: handle error
 		redirect("/login");
 	}

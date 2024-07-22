@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import ListBrandClient from "./_components/ListBrandClient";
 
 const getBrands = async () => {
-	const res = await axios.get("http://localhost:2222/api/brand");
+	const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/brand`);
 	// The return value is *not* serialized
 	// You can return Date, Map, Set, etc.
 

@@ -31,12 +31,12 @@ const UserDropDown = () => {
 				<DropdownMenuTrigger className="flex gap-2 items-center p-4 cursor-pointer capitalize text-xl xxsm:text-lg xsm:text-lg sm:text-lg md:text-lg lg:text-lg xsm:flex-col hover:bg-gray-500 hover:rounded-lg hover:py-4 text-white min-w-fit xxsm:hidden font-bold">
 					<UserCircleIcon className="h-6" />
 					<span className="max-w-[100px] overflow-hidden text-ellipsis text-nowrap">
-						{user ? user.user.name : "User Model"}
+						{user ? user.name : "User Model"}
 					</span>
 					<ChevronDownIcon className="h-6" />
 				</DropdownMenuTrigger>
 				<DropdownMenuContent>
-					{user && user?.user ? (
+					{user && user.name ? (
 						<>
 							<DropdownMenuItem className="p-0">
 								<Link

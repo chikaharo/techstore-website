@@ -30,7 +30,7 @@ const laptopBrandTags: Tag[] = [
 
 const getPhoneProducts = async () => {
 	const res = await axios.get(
-		"http://localhost:2222/api/product?category=phone"
+		process.env.NEXT_PUBLIC_BACKEND_URL + "/product?category=phone"
 	);
 	// The return value is *not* serialized
 	// You can return Date, Map, Set, etc.
@@ -44,7 +44,7 @@ const getPhoneProducts = async () => {
 };
 const getLaptopProducts = async () => {
 	const res = await axios.get(
-		"http://localhost:2222/api/product?category=laptop"
+		process.env.NEXT_PUBLIC_BACKEND_URL + "/product?category=laptop"
 	);
 	// The return value is *not* serialized
 	// You can return Date, Map, Set, etc.

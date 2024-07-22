@@ -61,7 +61,7 @@ const EditProductForm = ({ brands, categories, colors, product }: Props) => {
 		quantity: z.number().min(1, { message: "Quantity is required" }),
 		category: z.string().min(1, { message: "Category is required" }),
 		brand: z.string().min(1, { message: "Category is required" }),
-		tags: z.nativeEnum(TagType),
+		tags: z.string(),
 		colors: z.array(z.string()).min(1, { message: "Color is required" }),
 		images: z
 			.array(
@@ -83,7 +83,9 @@ const EditProductForm = ({ brands, categories, colors, product }: Props) => {
 			category: product?.category,
 			brand: product?.brand,
 			tags: product?.tags,
+			// @ts-ignore
 			colors: product?.colors,
+			// @ts-ignore
 			images: product?.images,
 		},
 	});
@@ -116,13 +118,13 @@ const EditProductForm = ({ brands, categories, colors, product }: Props) => {
 			// @ts-ignore
 			form.setValue("images", [...imagesState, ...res.data]);
 			setSelectedImages((prev) => [...prev, ...res.data]);
-		} catch (error) {
+		} catch (error: any) {
 			console.log("upload image failed: ", error);
 		}
 		setLoading(false);
 	};
 
-	const handleDeleteImage = (image: Image) => {
+	const handleDeleteImage = (image: ProdImage) => {
 		const imagesState = form.getValues("images");
 		const updatedImage = imagesState?.filter(
 			(img) => img.asset_id !== image.asset_id
@@ -148,7 +150,7 @@ const EditProductForm = ({ brands, categories, colors, product }: Props) => {
 			toast("Create New Product Successfully", {
 				className: "bg-green-600 ",
 			});
-		} catch (error) {
+		} catch (error: any) {
 			toast("Create New Product Failed", {
 				className: "bg-red-600 text-white",
 			});
@@ -340,6 +342,7 @@ const EditProductForm = ({ brands, categories, colors, product }: Props) => {
 								<FormControl>
 									<MultiSelect
 										values={colors}
+										// @ts-ignore
 										defaultValues={product.colors}
 										handleChange={(items: string) =>
 											handleChangeMultipleSelect(items)
@@ -396,9 +399,7 @@ const EditProductForm = ({ brands, categories, colors, product }: Props) => {
 									type="button"
 									onClick={() => handleDeleteImage(i)}
 									className="bg-white rounded-md p-0.5 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 relative z-20"
-									style={{ alignSelf: "start", size: "10px" }}
-									width={10}
-									height={10}
+									style={{ alignSelf: "start", width: "10px", height: "10px" }}
 								>
 									<span className="sr-only">Close menu</span>
 									<svg

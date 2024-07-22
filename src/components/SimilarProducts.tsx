@@ -8,7 +8,6 @@ interface Props {
 }
 
 const SimilarProducts = ({ products }: Props) => {
-	console.log("similar Products page: ", products);
 	return (
 		<div className="mt-6">
 			<h3 className="text-slate-800 text-xl font-bold">Similar Products</h3>

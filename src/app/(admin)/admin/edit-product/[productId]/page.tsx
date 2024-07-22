@@ -38,7 +38,7 @@ const getProduct = async (prodId: string) => {
 	try {
 		const res = await axios.get("/product/by-id/" + prodId);
 		return res.data.data;
-	} catch (error) {
+	} catch (error: any) {
 		console.log("get Product error: ", error);
 		throw new Error(error);
 	}
@@ -52,7 +52,7 @@ const EditProductPage = async ({
 	const brands: RawBrand[] = await getBrands();
 	const categories: RawCategory[] = await getCategories();
 	const colors: RawColor[] = await getColors();
-	const product = await getProduct(params.productId);
+	const product: Product = await getProduct(params.productId);
 	console.log("edit product:", product);
 	// console.log(params.productId);
 	// if (!product) {
@@ -75,7 +75,7 @@ const EditProductPage = async ({
 		value: color.value,
 		createdAt: color.createdAt,
 	}));
-	const formattedProduct: RawProduct = {
+	const formattedProduct: Product = {
 		...product,
 		images: product.images.map((img) => ({
 			public_id: img.public_id,

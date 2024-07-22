@@ -39,7 +39,7 @@ const AddCategory = () => {
 				throw new Error("Create Category failed");
 			}
 			toast({ title: "Create New Category Successfully" });
-		} catch (error) {
+		} catch (error: any) {
 			toast({ title: error.message, variant: "destructive" });
 
 			console.log("add category error: ", error);
