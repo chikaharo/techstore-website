@@ -32,12 +32,13 @@ const getPhoneProducts = async () => {
 	const res = await axios.get(
 		process.env.NEXT_PUBLIC_BACKEND_URL + "/product?category=phone"
 	);
+	console.log("getPhone products res", res.data);
 	// The return value is *not* serialized
 	// You can return Date, Map, Set, etc.
 
 	if (!res.data) {
 		// This will activate the closest `error.js` Error Boundary
-		// throw new Error("Failed to fetch data");
+		throw new Error("Failed to fetch data");
 	}
 
 	return res.data.data.products;
@@ -48,10 +49,11 @@ const getLaptopProducts = async () => {
 	);
 	// The return value is *not* serialized
 	// You can return Date, Map, Set, etc.
+	console.log("getLaptop products res", res.data);
 
 	if (!res.data) {
 		// This will activate the closest `error.js` Error Boundary
-		// throw new Error("Failed to fetch data");
+		throw new Error("Failed to fetch data");
 	}
 
 	return res.data.data.products;

@@ -16,14 +16,15 @@ import {
 	ShoppingBagIcon,
 } from "@heroicons/react/24/solid";
 import { ArrowLeftEndOnRectangleIcon } from "@heroicons/react/24/outline";
-import { useUser } from "@clerk/nextjs";
 import { signOut, useSession } from "next-auth/react";
 import { Button } from "./ui/button";
 
 const UserDropDown = () => {
-	const { data: session, status } = useSession();
+	const session = useSession();
 
-	const user = session?.user;
+	console.log("userDropdow sessiion:", session);
+
+	const user = session?.data?.user;
 
 	return (
 		<div className="hidden lg:block">
@@ -78,9 +79,14 @@ const UserDropDown = () => {
 									Log In
 								</Link>
 							</DropdownMenuItem>
-							<DropdownMenuItem className="min-w-[180px] flex items-center gap-1 p-2 text-lg cursor-pointer  xsm:text-sm sm:text-sm hover:bg-gray-300 hover:rounded-lg">
-								<PencilSquareIcon className="h-6" />
-								Register
+							<DropdownMenuItem>
+								<Link
+									href="/login"
+									className="min-w-[180px] w-full h-full flex items-center gap-1 p-2 text-lg cursor-pointer  xsm:text-sm sm:text-sm hover:bg-gray-300 hover:rounded-lg "
+								>
+									<PencilSquareIcon className="h-6" />
+									Register
+								</Link>
 							</DropdownMenuItem>
 						</>
 					)}

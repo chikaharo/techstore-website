@@ -38,6 +38,19 @@ interface Product {
 	sold: number;
 }
 
+interface User {
+	id: number;
+	name: string;
+	email: string;
+	password: string;
+	role: string;
+	created_at: string;
+	updated_at?: any;
+	iat: number;
+	exp: number;
+	jti: string;
+}
+
 interface Color {
 	_id: string;
 	title?: string;

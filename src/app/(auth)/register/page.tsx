@@ -207,7 +207,7 @@ const RegisterPage = () => {
 					<Button type="submit" variant="default" disabled={loading}>
 						Register
 					</Button>
-					<div className="flex items-center mt-5 h-[49px]">
+					{/* <div className="flex items-center mt-5 h-[49px]">
 						<hr className="h-[1px] w-full" />
 						<p className="mx-2 whitespace-nowrap">Hoặc đăng nhập với</p>
 						<hr className="h-[1px] w-full" />
@@ -231,7 +231,7 @@ const RegisterPage = () => {
 							/>
 							<p>Zalo</p>
 						</div>
-					</div>
+					</div> */}
 				</div>
 			</form>
 		</Form>

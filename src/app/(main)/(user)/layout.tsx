@@ -1,6 +1,6 @@
 "use client";
 import LoadingModal from "@/components/LoadingModal";
-import { getServerSession } from "next-auth/next";
+import { useAuth } from "@/hooks/useAuth";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { ReactNode, Suspense, useEffect } from "react";
@@ -13,12 +13,13 @@ const ProtectedUserLayout = ({
 	children: ReactNode;
 }) => {
 	const { data: session } = useSession();
-	console.log("session protected paged:", session);
-	useEffect(() => {
-		if (!session) {
-			return redirect("/login");
-		}
-	}, []);
+	console.log("user layout session: ", session);
+	// useEffect(() => {
+	// 	if (!session) {
+	// 		return redirect("/login");
+	// 	}
+	// }, []);
+	// const { session, loading } = useAuth();
 
 	return (
 		<>
