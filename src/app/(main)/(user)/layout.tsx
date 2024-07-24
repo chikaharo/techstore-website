@@ -1,6 +1,5 @@
 "use client";
 import LoadingModal from "@/components/LoadingModal";
-import { getServerSession } from "next-auth/next";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { ReactNode, Suspense, useEffect } from "react";
