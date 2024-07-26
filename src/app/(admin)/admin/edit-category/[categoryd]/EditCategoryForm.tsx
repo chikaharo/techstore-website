@@ -17,6 +17,7 @@ import { useState } from "react";
 import { Brand } from "../../list-brand/_components/Column";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { Loader2 } from "lucide-react";
 
 interface Props {
 	category: Category;
@@ -85,7 +86,11 @@ const EditCategoryForm = ({ category }: Props) => {
 					/>
 					<div className="mt-4">
 						<Button disabled={loading} type="submit" variant="default">
-							Update
+							{loading ? (
+								<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+							) : (
+								"Update"
+							)}
 						</Button>
 					</div>
 				</form>

@@ -1,27 +1,21 @@
 "use client";
-import LoadingModal from "@/components/LoadingModal";
+import { CartProvider } from "@/providers/CartProvider";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { ReactNode, Suspense, useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 
-const ProtectedUserLayout = ({
-	children,
-
-	...props
-}: {
-	children: ReactNode;
-}) => {
-	const { data: session } = useSession();
-	console.log("session protected paged:", session);
+const ProtectedUserLayout = ({ children }: { children: ReactNode }) => {
+	const { data: session, status } = useSession();
+	console.log("session protected paged:", session?.user.accessToken);
 	useEffect(() => {
-		if (!session) {
+		if (status !== "loading" && status == "unauthenticated") {
 			return redirect("/login");
 		}
-	}, []);
+	}, [status]);
 
 	return (
 		<>
-			<Suspense fallback={<LoadingModal />}>{children}</Suspense>
+			<CartProvider>{children}</CartProvider>
 		</>
 	);
 };

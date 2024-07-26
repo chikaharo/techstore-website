@@ -31,7 +31,8 @@ interface Product {
 	colors: Color[];
 	price: number;
 	quantity: number;
-	images: Image[];
+	images: ProdImage[];
+	tags?: string;
 	thumbnail: string;
 	ratings: [];
 	totalRating: string;
@@ -45,8 +46,8 @@ interface Color {
 	createdAt?: string;
 }
 
-interface Image {
-	asset_id?: string | null;
+interface ProdImage {
+	asset_id: string;
 	public_id: string;
 	url: string;
 	_id: string;
@@ -87,4 +88,9 @@ interface IWard {
 	Id: string;
 	Name: string;
 	Level: string;
+}
+
+interface Tag {
+	title: string;
+	url: string;
 }

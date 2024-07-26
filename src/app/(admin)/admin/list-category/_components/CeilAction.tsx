@@ -71,10 +71,8 @@ const CeilAction = ({ category }: Props) => {
 						className="flex gap-x-2 cursor-pointer"
 						onClick={() => setIsOpen(true)}
 					>
-						{/* <Button variant="outline" className="w-full flex gap-2"> */}
 						<TrashIcon className="h-6 w-6" />
 						Delete
-						{/* </Button> */}
 					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>

@@ -28,6 +28,7 @@ import { useRouter } from "next/navigation";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { formatCurrency } from "@/helpers/formatCurrency";
 import { useToast } from "./ui/use-toast";
+import { Loader2 } from "lucide-react";
 
 interface Props {
 	total: number;
@@ -44,7 +45,6 @@ const CheckoutForm = ({ total }: Props) => {
 				const response = await axios.get(
 					"https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json"
 				);
-				console.log("response data: ", response);
 
 				setProvinceData(response.data);
 			} catch (error: any) {
@@ -130,9 +130,6 @@ const CheckoutForm = ({ total }: Props) => {
 				const response = await axios.get(
 					"https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json"
 				);
-				// const parsedData = await JSON.parse(response.data);
-				// console.log({ parsedData });
-				console.log("response data: ", response);
 
 				setProvinceData(response.data);
 			} catch (error: any) {
@@ -298,11 +295,6 @@ const CheckoutForm = ({ total }: Props) => {
 							</FormItem>
 						)}
 					/>
-					{/* <div className="mt-4">
-						<Button disabled={loading} type="submit" variant="default">
-							Order
-						</Button>
-					</div> */}
 					<div className="fixed left-0 bottom-20 lg:bottom-0 right-0 ">
 						<MaxWidthWrapper className="h-[100px] p-4 bg-white border-t border-gray-300 shadow-md">
 							<div className="w-full h-full flex items-center justify-between">
@@ -310,8 +302,12 @@ const CheckoutForm = ({ total }: Props) => {
 									<p className=" text-slate-800">Total (2 products): </p>
 									<span className="text-red-600">{formatCurrency(total)}</span>
 								</div>
-								<Button type="submit" className="px-8">
-									Checkout
+								<Button type="submit" className="px-8" disabled={loading}>
+									{loading ? (
+										<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+									) : (
+										"Checkout"
+									)}
 								</Button>
 							</div>
 						</MaxWidthWrapper>

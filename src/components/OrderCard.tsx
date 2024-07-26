@@ -19,6 +19,7 @@ import Image from "next/image";
 import { formatCurrency } from "@/helpers/formatCurrency";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { Loader2 } from "lucide-react";
 
 enum OrderStatus {
 	Processing = "Processing",
@@ -101,7 +102,11 @@ const OrderCard = ({ order, loading, handleCancel, handlePay }: Props) => {
 				{order.orderStatus === OrderStatus.NotProcessed && (
 					<div className="mt-4 w-full flex gap-2 justify-end items-center">
 						<Button disabled={loading} onClick={() => handlePay(order)}>
-							Pay now
+							{loading ? (
+								<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+							) : (
+								"Pay now"
+							)}
 						</Button>
 						<Button
 							disabled={loading}

@@ -1,16 +1,4 @@
 "use client";
-import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectLabel,
-	SelectTrigger,
-	SelectValue,
-} from "@/components/ui/select";
-import { ShoppingBagIcon, UserIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import axios from "@/lib/axios";
 import { useSession } from "next-auth/react";
@@ -113,7 +101,6 @@ const WishlistPage = () => {
 					},
 				});
 
-				console.log("get wishlist data: ", res.data);
 				if (res.data.status !== "success") {
 					throw new Error("Get wishlist error");
 				}

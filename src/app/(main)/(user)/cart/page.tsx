@@ -4,122 +4,33 @@ import CheckoutItem from "@/components/CheckoutItem";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import ProductCard from "@/components/ProductCard";
 import TotalCheckout from "@/components/TotalCheckout";
+import LoadingIndicator from "@/components/ui/loading-indicator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/components/ui/use-toast";
 import axios from "@/lib/axios";
-import { useSession } from "next-auth/react";
-import { useCallback, useEffect, useState } from "react";
+import { getCart } from "@/lib/fetchServices";
+import { customFetch } from "@/lib/useFetch";
+import { CartContext, useCartContext } from "@/providers/CartProvider";
+import { Loader2 } from "lucide-react";
+import { getSession, useSession } from "next-auth/react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 const CartPage = () => {
 	const { data: session } = useSession();
-	const [cartData, setCartData] = useState<Cart[]>([]);
-	const [loading, setLoading] = useState(false);
-	const totalPrice = cartData.reduce((acc, cur) => {
-		return (acc += cur.product.price * cur.quantity);
-	}, 0);
+	// console.log("cartPage session: ", session);
+	// const [cartData, setCartData] = useState<Cart[]>([]);
+	// const [loading, setLoading] = useState(false);
+	const {
+		cartData,
+		totalPrice,
+		loading,
+		addToCart,
+		subFromCart,
+		deleteFromCart,
+		testFn,
+	} = useCartContext();
+
 	const { toast } = useToast();
-
-	const handleAdd = async (productId: string, color: string) => {
-		setLoading(true);
-
-		try {
-			const res = await axios.put(
-				`/product/add-cart`,
-				{ prodId: productId, colorId: color },
-				{
-					headers: {
-						Authorization: `Bearer ${session?.user?.accessToken}`,
-					},
-				}
-			);
-			console.log("add to cart res:", res.data);
-			if (res.data.status !== "success") {
-				throw new Error("Add to cart failed");
-			}
-			getData();
-		} catch (error: any) {
-			toast({ title: error.message, variant: "destructive" });
-			console.log("handleAdd error:", error);
-		}
-
-		setLoading(false);
-	};
-
-	const handleMinus = async (productId: string, color: string) => {
-		setLoading(true);
-		try {
-			const res = await axios.put(
-				`/product/remove-cart`,
-				{ prodId: productId, colorId: color },
-				{
-					headers: {
-						Authorization: `Bearer ${session?.user?.accessToken}`,
-					},
-				}
-			);
-			console.log("add to cart res:", res.data);
-			if (res.data.status !== "success") {
-				throw new Error("Minus from cart failed");
-			}
-			getData();
-		} catch (error: any) {
-			toast({ title: error.message, variant: "destructive" });
-
-			console.log("handleMinus error:", error);
-		}
-		setLoading(false);
-	};
-
-	const handleDelete = async (productId: string, color: string) => {
-		setLoading(true);
-		try {
-			const res = await axios.post(
-				`/product/delete-cart`,
-				{ prodId: productId, colorId: color },
-				{
-					headers: {
-						Authorization: `Bearer ${session?.user?.accessToken}`,
-					},
-				}
-			);
-			console.log("add to cart res:", res.data);
-			if (res.data.status !== "success") {
-				throw new Error("Minus from cart failed");
-			}
-			getData();
-		} catch (error: any) {
-			toast({ title: error.message, variant: "destructive" });
-
-			console.log("handleDelete error:", error);
-		}
-		setLoading(false);
-	};
-
-	const getData = useCallback(async () => {
-		try {
-			const res = await axios.get("/product/cart", {
-				headers: {
-					Authorization: `Bearer ${session?.user.accessToken}`,
-					"Content-Type": "application/json",
-				},
-			});
-			console.log("cart page data:", res.data);
-			if (res.data.status !== "success") {
-				throw new Error("Get Cart Data failed");
-			}
-			setCartData(res.data.data);
-		} catch (error: any) {
-			toast({ title: error.message, variant: "destructive" });
-
-			console.log(error);
-		}
-	}, []);
-
-	useEffect(() => {
-		if (session && session.user) {
-			getData();
-		}
-	}, [session, session?.user, getData]);
 
 	return (
 		<MaxWidthWrapper>
@@ -130,16 +41,36 @@ const CartPage = () => {
 					</h1>
 					<ScrollArea className="h-48 w-full lg:h-screen">
 						<div className="flex flex-col gap-4">
-							{cartData.map((cart, idx) => (
-								<CheckoutItem
-									key={idx}
-									item={cart}
-									loading={loading}
-									incre={handleAdd}
-									decre={handleMinus}
-									deleteCart={handleDelete}
-								/>
-							))}
+							{!loading && !cartData.length && (
+								<div className="flex w-full h-[600px] justify-center items-center">
+									<Loader2 className="mr-2 h-8 w-8 animate-spin" />
+								</div>
+							)}
+							{!loading &&
+								cartData.map((cart, idx) => (
+									<CheckoutItem
+										key={idx}
+										item={cart}
+										loading={loading}
+										decre={() =>
+											subFromCart({
+												colorId: cart.color._id,
+												productId: cart.product._id,
+											})
+										}
+										deleteCart={() =>
+											deleteFromCart({
+												cartId: cart._id,
+											})
+										}
+										incre={() =>
+											addToCart({
+												colorId: cart.color._id,
+												productId: cart.product._id,
+											})
+										}
+									/>
+								))}
 						</div>
 					</ScrollArea>
 

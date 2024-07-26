@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { ShoppingCartIcon } from "@heroicons/react/24/outline";
-import { Trash } from "lucide-react";
+import { Loader2, Trash } from "lucide-react";
 
 enum OrderStatus {
 	Processing = "Processing",
@@ -74,13 +74,18 @@ const WishlistProduct = ({
 			</div>
 			<div className="flex flex-col md:flex-row items-center gap-2">
 				<Button
-					className="text-xs items-center justify-center gap-2"
 					variant={"outline"}
 					onClick={() => addToCart(product._id, selectedColor)}
 					disabled={loading}
 				>
-					<ShoppingCartIcon className="h-6 w-6" />
-					<p>Add to Cart</p>
+					{loading ? (
+						<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+					) : (
+						<div>
+							<ShoppingCartIcon className="h-6 w-6" />
+							<p>Add to Cart</p>
+						</div>
+					)}
 				</Button>
 				<Button
 					className="text-xs items-center justify-center gap-2"
@@ -88,8 +93,14 @@ const WishlistProduct = ({
 					onClick={() => removeFromWishlist(product._id)}
 					disabled={loading}
 				>
-					<Trash className="h-6 w-6" />
-					<p>Remove</p>
+					{loading ? (
+						<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+					) : (
+						<div className="text-xs items-center justify-center gap-2">
+							<Trash className="h-6 w-6" />
+							<p>Remove</p>
+						</div>
+					)}
 				</Button>
 			</div>
 		</div>

@@ -5,10 +5,12 @@ import { Color } from "@/app/(admin)/admin/list-color/_components/Column";
 import { Button } from "./ui/button";
 import { PlusIcon, MinusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { formatCurrency } from "@/helpers/formatCurrency";
+import LoadingIndicator from "./ui/loading-indicator";
+import { Loader2 } from "lucide-react";
 
 interface Props {
 	item: Cart;
-	loading: boolean;
+	loading?: boolean;
 	incre: (prodId: string, colorId: string) => void;
 	decre: (prodId: string, colorId: string) => void;
 	deleteCart: (prodId: string, colorId: string) => void;
@@ -41,7 +43,11 @@ const CheckoutItem = ({ item, loading, incre, decre, deleteCart }: Props) => {
 						variant="outline"
 						disabled={loading}
 					>
-						<MinusIcon className="h-6 w-6" />
+						{loading ? (
+							<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+						) : (
+							<MinusIcon className="h-6 w-6" />
+						)}
 					</Button>
 					<input
 						className="p-2 w-12 h-8 text-center"
@@ -53,7 +59,11 @@ const CheckoutItem = ({ item, loading, incre, decre, deleteCart }: Props) => {
 						variant="outline"
 						disabled={loading}
 					>
-						<PlusIcon className="h-6 w-6" />
+						{loading ? (
+							<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+						) : (
+							<PlusIcon className="h-6 w-6" />
+						)}
 					</Button>
 				</div>
 				<div className="flex items-center justify-center">
@@ -62,7 +72,11 @@ const CheckoutItem = ({ item, loading, incre, decre, deleteCart }: Props) => {
 						variant="outline"
 						disabled={loading}
 					>
-						<TrashIcon className="h-6 w-6 text-red-600" />
+						{loading ? (
+							<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+						) : (
+							<TrashIcon className="h-6 w-6 text-red-600" />
+						)}
 					</Button>
 				</div>
 			</div>

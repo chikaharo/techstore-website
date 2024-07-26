@@ -31,14 +31,13 @@ import axios from "@/lib/axios";
 import MultiSelect from "@/components/ui/multiple-select";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { RawProduct } from "../../list-product/page";
-import { ProdImage } from "../../list-product/_components/Column";
+import { Loader2 } from "lucide-react";
 
 interface Props {
 	brands: Brand[];
 	categories: Category[];
 	colors: Color[];
-	product: RawProduct;
+	product: Product;
 }
 
 enum TagType {
@@ -83,9 +82,7 @@ const EditProductForm = ({ brands, categories, colors, product }: Props) => {
 			category: product?.category,
 			brand: product?.brand,
 			tags: product?.tags,
-			// @ts-ignore
-			colors: product?.colors,
-			// @ts-ignore
+			colors: product?.colors.map((color) => color._id),
 			images: product?.images,
 		},
 	});
@@ -426,13 +423,7 @@ const EditProductForm = ({ brands, categories, colors, product }: Props) => {
 							{!loading ? (
 								<>Update</>
 							) : (
-								<div>
-									<svg
-										className="animate-spin h-5 w-5 mr-3 ..."
-										viewBox="0 0 24 24"
-									></svg>
-									Processing...
-								</div>
+								<Loader2 className="mr-2 h-4 w-4 animate-spin" />
 							)}
 						</Button>
 					</div>

@@ -59,11 +59,6 @@ const LoginPage = () => {
 			}
 			router.refresh();
 			router.push("/");
-			// const res1 = await axios.get("/user/hello", {
-			// 	withCredentials: true,
-			// });
-			// console.log("response after: ", res1.data);
-			// router.push("/");
 		} catch (error: any) {
 			form.setError("email", {
 				type: "validate",
