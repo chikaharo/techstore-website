@@ -44,6 +44,7 @@ const ProfilePage = () => {
 
 				<div className="w-full flex items-center gap-x-4">
 					<div className="text-slate-800 font-semibold">Role: </div>
+					{/* @ts-ignore  */}
 					<div className="">{userData?.role}</div>
 				</div>
 				<div className="mt-6 w-full flex items-center justify-end gap-x-4">

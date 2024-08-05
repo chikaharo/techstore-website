@@ -1,7 +1,6 @@
 import axios from "@/lib/axios";
 import { useParams } from "next/navigation";
 import EditBrandForm from "./EditBrandForm";
-import { Brand } from "../../list-brand/_components/Column";
 
 const getBrandData = async (id: string) => {
 	try {
@@ -21,14 +20,9 @@ const EditBrand = async ({ params }: { params: { brandId: string } }) => {
 	if (!brand) {
 		return <div>Brand is not found</div>;
 	}
-	const formattedBrand: Brand = {
-		id: brand._id,
-		title: brand.title,
-		createdAt: brand.createdAt,
-	};
 	return (
 		<div className="w-full min-h-screen">
-			<EditBrandForm brand={formattedBrand} />
+			<EditBrandForm brand={brand} />
 		</div>
 	);
 };

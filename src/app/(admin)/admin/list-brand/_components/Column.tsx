@@ -15,11 +15,6 @@ import Link from "next/link";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Brand = {
-	id: string;
-	title: string;
-	createdAt: string;
-};
 
 export const columns: ColumnDef<Brand>[] = [
 	{
@@ -49,7 +44,7 @@ export const columns: ColumnDef<Brand>[] = [
 
 						<DropdownMenuSeparator />
 						<DropdownMenuItem>
-							<Link href={`/admin/edit-brand/${brand.id}`} className="w-full">
+							<Link href={`/admin/edit-brand/${brand._id}`} className="w-full">
 								Edit Brand
 							</Link>
 						</DropdownMenuItem>

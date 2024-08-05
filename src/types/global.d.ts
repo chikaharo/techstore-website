@@ -16,7 +16,7 @@ interface Order {
 }
 
 interface Category {
-	id: string;
+	_id: string;
 	title: string;
 	createdAt: string;
 }
@@ -58,6 +58,12 @@ interface Cart {
 	color: Color;
 	product: Product;
 	quantity: number;
+}
+
+interface Brand {
+	_id?: string;
+	title: string;
+	createdAt: string;
 }
 
 interface IFilters {

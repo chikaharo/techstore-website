@@ -4,11 +4,6 @@ import CeilAction from "./CeilAction";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Category = {
-	id: string;
-	title: string;
-	createdAt: string;
-};
 
 export const columns: ColumnDef<Category>[] = [
 	{

@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal, Link, PencilIcon, TrashIcon } from "lucide-react";
 import { useState } from "react";
-import { Category } from "./Column";
 import AlertModal from "@/components/ui/alert-modal";
 import axios from "@/lib/axios";
 import { toast } from "sonner";
@@ -26,13 +25,13 @@ const CeilAction = ({ category }: Props) => {
 	const router = useRouter();
 
 	const onEdit = () => {
-		router.push(`/admin/edit-category/${category.id}`);
+		router.push(`/admin/edit-category/${category._id}`);
 	};
 
 	const confirmDelete = async () => {
 		setIsLoading(true);
 		try {
-			const res = await axios.delete(`/category/${category.id}`);
+			const res = await axios.delete(`/category/${category._id}`);
 			console.log("confirm delete category: ", res);
 			router.refresh();
 			toast("Deleted category successfully");

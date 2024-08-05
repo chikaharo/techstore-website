@@ -2,18 +2,11 @@
 import CheckoutForm from "@/components/CheckoutForm";
 import CheckoutItem from "@/components/CheckoutItem";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import ProductCard from "@/components/ProductCard";
-import TotalCheckout from "@/components/TotalCheckout";
-import LoadingIndicator from "@/components/ui/loading-indicator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/components/ui/use-toast";
-import axios from "@/lib/axios";
-import { getCart } from "@/lib/fetchServices";
-import { customFetch } from "@/lib/useFetch";
-import { CartContext, useCartContext } from "@/providers/CartProvider";
+import { useCartContext } from "@/providers/CartProvider";
 import { Loader2 } from "lucide-react";
-import { getSession, useSession } from "next-auth/react";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 
 const CartPage = () => {
 	const { data: session } = useSession();

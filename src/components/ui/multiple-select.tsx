@@ -8,7 +8,6 @@ import {
 	DropdownMenuTrigger,
 } from "./dropdown-menu";
 import { Button } from "./button";
-import { Color } from "@/app/(admin)/admin/list-color/_components/Column";
 
 interface ISelectProps {
 	values: Color[];
@@ -28,9 +27,9 @@ const MultiSelect = ({ values, defaultValues, handleChange }: ISelectProps) => {
 		defaultSelectedItems = defaultValues;
 		const titleById: ITitleById = {};
 		values.forEach((vl) => {
-			titleById[vl.id] = vl.title;
+			titleById[vl._id] = vl.title!;
 		});
-		defaultSelectedTitles = values.map((vl) => titleById[vl.id]);
+		defaultSelectedTitles = values.map((vl) => titleById[vl._id]);
 	}
 
 	const [selectedItems, setSelectedItems] =
@@ -39,16 +38,18 @@ const MultiSelect = ({ values, defaultValues, handleChange }: ISelectProps) => {
 		defaultSelectedTitles
 	);
 	const handleSelectChange = (value: Color) => {
-		handleChange(value.id);
-		if (!selectedItems.includes(value.id)) {
-			setSelectedItems((prev) => [...prev, value.id]);
-			setSelectedTitles((prev) => [...prev, value.title]);
+		handleChange(value._id);
+		if (!selectedItems.includes(value._id)) {
+			setSelectedItems((prev) => [...prev, value._id]);
+			setSelectedTitles((prev) => [...prev, value.title!]);
 		} else {
 			const referencedArrayItems = [...selectedItems];
-			const indexOfItemToBeRemoved = referencedArrayItems.indexOf(value.id);
+			const indexOfItemToBeRemoved = referencedArrayItems.indexOf(value._id);
 			referencedArrayItems.splice(indexOfItemToBeRemoved, 1);
 			const referencedArrayTitles = [...selectedTitles];
-			const indexOfNameToBeRemoved = referencedArrayTitles.indexOf(value.title);
+			const indexOfNameToBeRemoved = referencedArrayTitles.indexOf(
+				value.title!
+			);
 			referencedArrayTitles.splice(indexOfItemToBeRemoved, 1);
 			setSelectedItems(referencedArrayItems);
 			setSelectedTitles(referencedArrayTitles);
@@ -83,7 +84,7 @@ const MultiSelect = ({ values, defaultValues, handleChange }: ISelectProps) => {
 							<DropdownMenuCheckboxItem
 								onSelect={(e) => e.preventDefault()}
 								key={index}
-								checked={isOptionSelected(value.id)}
+								checked={isOptionSelected(value._id)}
 								onCheckedChange={() => handleSelectChange(value)}
 							>
 								{`${value.title}  - ${value.value}`}

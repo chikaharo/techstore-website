@@ -7,36 +7,35 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreHorizontal, Link, PencilIcon, TrashIcon } from "lucide-react";
+import { MoreHorizontal, PencilIcon, TrashIcon } from "lucide-react";
 import { useState } from "react";
 import AlertModal from "@/components/ui/alert-modal";
 import axios from "@/lib/axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { PencilSquareIcon } from "@heroicons/react/24/outline";
 
 interface Props {
-	category: Category;
+	color: Color;
 }
 
-const CeilAction = ({ category }: Props) => {
+const CeilAction = ({ color }: Props) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
 
 	const onEdit = () => {
-		router.push(`/admin/edit-color/${category.id}`);
+		router.push(`/admin/edit-color/${color._id}`);
 	};
 
 	const confirmDelete = async () => {
 		setIsLoading(true);
 		try {
-			const res = await axios.delete(`/color/${category.id}`);
+			const res = await axios.delete(`/color/${color._id}`);
 			console.log("confirm delete color: ", res);
 			router.refresh();
 			toast("Deleted color successfully");
 		} catch (error: any) {
-			console.log("Delete category error: ", error);
+			console.log("Delete color error: ", error);
 			toast("Deleted color failed");
 		}
 		setIsLoading(false);
@@ -49,7 +48,7 @@ const CeilAction = ({ category }: Props) => {
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
 				onConfirm={confirmDelete}
-				title="Are you sure to delete this category"
+				title="Are you sure to delete this color"
 			/>
 			<DropdownMenu>
 				<DropdownMenuTrigger asChild>

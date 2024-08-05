@@ -14,9 +14,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Brand } from "../../list-brand/_components/Column";
-import { Category } from "../../list-category/_components/Column";
-import { Color } from "../../list-color/_components/Column";
 import {
 	Select,
 	SelectContent,
@@ -246,7 +243,7 @@ const EditProductForm = ({ brands, categories, colors, product }: Props) => {
 													<>
 														<SelectLabel>Brands</SelectLabel>
 														{brands.map((brand) => (
-															<SelectItem key={brand.id} value={brand.title}>
+															<SelectItem key={brand._id} value={brand.title}>
 																{brand.title}
 															</SelectItem>
 														))}
@@ -282,7 +279,7 @@ const EditProductForm = ({ brands, categories, colors, product }: Props) => {
 														<SelectLabel>Categories</SelectLabel>
 														{categories.map((category) => (
 															<SelectItem
-																key={category.id}
+																key={category._id}
 																value={category.title}
 															>
 																{category.title}
@@ -338,6 +335,7 @@ const EditProductForm = ({ brands, categories, colors, product }: Props) => {
 
 								<FormControl>
 									<MultiSelect
+										// @ts-ignore
 										values={colors}
 										// @ts-ignore
 										defaultValues={product.colors}

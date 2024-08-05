@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontal, Link, PencilIcon, TrashIcon } from "lucide-react";
 import { useState } from "react";
-import { Product } from "./Column";
 import AlertModal from "@/components/ui/alert-modal";
 import axios from "@/lib/axios";
 import { toast } from "sonner";

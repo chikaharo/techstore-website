@@ -14,7 +14,6 @@ import axios from "@/lib/axios";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Brand } from "../../list-brand/_components/Column";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { Loader2 } from "lucide-react";
@@ -41,7 +40,7 @@ const EditCategoryForm = ({ category }: Props) => {
 		console.log(values);
 		try {
 			setLoading(true);
-			const res = await axios.put(`/category/${category.id}`, values);
+			const res = await axios.put(`/category/${category._id}`, values);
 			console.log(res.data);
 			if (res.data.status !== "success") {
 				throw new Error("Edit category failed");

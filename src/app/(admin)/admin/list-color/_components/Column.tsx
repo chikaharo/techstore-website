@@ -18,13 +18,6 @@ import CeilAction from "./CeilAction";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Color = {
-	_id?: string;
-	id: string;
-	title: string;
-	value: string;
-	createdAt: string;
-};
 
 export const columns: ColumnDef<Color>[] = [
 	{
@@ -56,9 +49,9 @@ export const columns: ColumnDef<Color>[] = [
 		id: "actions",
 		header: "Actions",
 		cell: ({ row }) => {
-			const category = row.original;
+			const color = row.original;
 
-			return <CeilAction category={category} />;
+			return <CeilAction color={color} />;
 		},
 	},
 ];

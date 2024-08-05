@@ -1,7 +1,5 @@
 import Image from "next/image";
 import { AspectRatio } from "./ui/aspect-ratio";
-import { Product } from "@/app/(admin)/admin/list-product/_components/Column";
-import { Color } from "@/app/(admin)/admin/list-color/_components/Column";
 import { Button } from "./ui/button";
 import { PlusIcon, MinusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { formatCurrency } from "@/helpers/formatCurrency";
