@@ -17,6 +17,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+ENV NEXT_PUBLIC_BACKEND_URL=http://13.229.216.135:30060/api
 RUN yarn build
 
 FROM base AS runner
