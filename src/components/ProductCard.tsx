@@ -3,7 +3,6 @@ import { Card, CardContent, CardFooter, CardTitle } from "./ui/card";
 import { cn } from "@/lib/utils";
 import { AspectRatio } from "./ui/aspect-ratio";
 import Image from "next/image";
-import { Button } from "./ui/button";
 import Rating from "./Rating";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
@@ -11,6 +10,7 @@ import { formatCurrency } from "@/helpers/formatCurrency";
 import axios from "@/lib/axios";
 import { useToast } from "@/components/ui/use-toast";
 import { useSession } from "next-auth/react";
+import { defaultImage } from "@/constants";
 
 interface Props {
 	className?: string;
@@ -54,7 +54,11 @@ const ProductCard = ({ className, data }: Props) => {
 			<Link href={`/product/${data.slug}`}>
 				<AspectRatio ratio={1 / 1}>
 					<Image
-						src={data.images[0].url}
+						src={
+							data.images.length && data.images[0]
+								? data.images[0].url
+								: defaultImage
+						}
 						alt="Image"
 						fill
 						className="rounded-md object-cover"

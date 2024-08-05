@@ -7,7 +7,9 @@ import axios from "@/lib/axios";
 const colors = ["Titan đen", "Titan xanh", "Trắng", "Hồng"];
 
 const getProduct = async (id: string) => {
-	const res = await axios.get(`http://localhost:2222/api/product/by-id/${id}`);
+	const res = await axios.get(
+		`${process.env.NEXT_PUBLIC_BACKEND_URL}/product/by-id/${id}`
+	);
 	// The return value is *not* serialized
 	// You can return Date, Map, Set, etc.
 
@@ -19,18 +21,18 @@ const getProduct = async (id: string) => {
 	return res.data.data;
 };
 
-const addToCart = async () => {
-	const res = await axios.put(`http://localhost:2222/api/product/add-cart`);
-	// The return value is *not* serialized
-	// You can return Date, Map, Set, etc.
+// const addToCart = async () => {
+// 	const res = await axios.put(`http://localhost:2222/api/product/add-cart`);
+// 	// The return value is *not* serialized
+// 	// You can return Date, Map, Set, etc.
 
-	if (!res.data) {
-		// This will activate the closest `error.js` Error Boundary
-		// throw new Error("Failed to fetch data");
-	}
+// 	if (!res.data) {
+// 		// This will activate the closest `error.js` Error Boundary
+// 		// throw new Error("Failed to fetch data");
+// 	}
 
-	return res.data;
-};
+// 	return res.data;
+// };
 
 const ProductPage = async ({ params }: { params: { productId: string } }) => {
 	const product: Product = await getProduct(params.productId);

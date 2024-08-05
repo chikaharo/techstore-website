@@ -1,5 +1,4 @@
 import axios from "@/lib/axios";
-import { Product } from "./_components/Column";
 import ListProductClient from "./_components/ListProductClient";
 
 export interface RawProduct extends Product {
@@ -23,10 +22,6 @@ const ListProduct = async () => {
 	const products: Product[] = await getProducts();
 	if (!products) return <div>No products yet</div>;
 	console.log({ products });
-	// const formattedProducts: Product[] = products.map((product) => ({
-	// 	...product,
-	// 	id: product._id,
-	// }));
 	return (
 		<div className="flex flex-col w-full py-8 px-6">
 			<div className="my-6">

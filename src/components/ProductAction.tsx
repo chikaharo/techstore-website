@@ -8,13 +8,8 @@ import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { useToast } from "./ui/use-toast";
 import { cn } from "@/lib/utils";
-
-interface Color {
-	_id: string;
-	title: string;
-	value: string;
-	createdAt: string;
-}
+import { useRouter } from "next/navigation";
+import { formatCurrency } from "@/helpers/formatCurrency";
 
 interface Props {
 	product: Product;
@@ -24,6 +19,7 @@ const ProductAction = ({ product }: Props) => {
 	const [selectedColor, setSelectedColor] = useState("");
 	const { data: session } = useSession();
 	const { toast } = useToast();
+	const router = useRouter();
 
 	const addToCart = async () => {
 		if (!session || !session.user) {
@@ -56,7 +52,10 @@ const ProductAction = ({ product }: Props) => {
 		}
 	};
 
-	const handleCheckout = () => {};
+	const handleCheckout = async () => {
+		await addToCart();
+		router.push("/cart");
+	};
 
 	return (
 		<div className="flex flex-col w-full">
@@ -79,11 +78,11 @@ const ProductAction = ({ product }: Props) => {
 			<div className="grid grid-cols-4 items-center my-4">
 				<p className="font-semibold text-gray-700">Giá chỉ từ:</p>
 				<p className="col-span-3 text-2xl text-red-600 font-bold">
-					27.990.000 đ
+					{formatCurrency(product.price)}
 				</p>
 				<div></div>
 				<p className="col-span-3 text-gray-700 font-bold line-through ">
-					30.990.000 đ
+					{formatCurrency(product.price * 1.3)}
 				</p>
 			</div>
 			<div className="flex items-center gap-2">

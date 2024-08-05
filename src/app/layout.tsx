@@ -2,12 +2,8 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import Header from "@/components/Header";
-import Footer from "../components/Footer";
-import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
 import { Toaster as IToaster } from "@/components/ui/toaster";
-import { SessionProvider } from "next-auth/react";
 import AuthProvider from "@/components/AuthProvider";
 
 const fontSans = FontSans({

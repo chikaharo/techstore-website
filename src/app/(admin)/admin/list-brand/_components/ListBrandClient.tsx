@@ -1,5 +1,5 @@
 import { DataTable } from "@/components/ui/data-table";
-import { Brand, columns } from "./Column";
+import { columns } from "./Column";
 
 interface Props {
 	brands: Brand[];

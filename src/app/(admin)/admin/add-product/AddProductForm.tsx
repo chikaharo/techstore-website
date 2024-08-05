@@ -14,9 +14,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Brand } from "../list-brand/_components/Column";
-import { Category } from "../list-category/_components/Column";
-import { Color } from "../list-color/_components/Column";
 import {
 	Select,
 	SelectContent,
@@ -33,6 +30,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { Loader2 } from "lucide-react";
 
 interface Props {
 	brands: Brand[];
@@ -114,11 +112,11 @@ const AddProductForm = ({ brands, categories, colors }: Props) => {
 		try {
 			const res = await axios.post("/upload", formData);
 			console.log("upload image ok: ", res.data);
-			if (res.data.status !== "success") {
-				throw new Error("Upload images failed");
-			}
-			const imagesState = form.getValues("images");
-			// @ts-ignore
+			// if (res.data.status !== "success") {
+			// 	throw new Error("Upload images failed");
+			// }
+			const imagesState = form.getValues("images") || [];
+			console.log({ imagesState });
 			form.setValue("images", [...imagesState, ...res.data]);
 			setSelectedImages((prev) => [...prev, ...res.data]);
 		} catch (error) {
@@ -253,7 +251,7 @@ const AddProductForm = ({ brands, categories, colors }: Props) => {
 													<>
 														<SelectLabel>Brands</SelectLabel>
 														{brands.map((brand) => (
-															<SelectItem key={brand.id} value={brand.title}>
+															<SelectItem key={brand._id} value={brand.title}>
 																{brand.title}
 															</SelectItem>
 														))}
@@ -289,7 +287,7 @@ const AddProductForm = ({ brands, categories, colors }: Props) => {
 														<SelectLabel>Categories</SelectLabel>
 														{categories.map((category) => (
 															<SelectItem
-																key={category.id}
+																key={category._id}
 																value={category.title}
 															>
 																{category.title}
@@ -345,6 +343,7 @@ const AddProductForm = ({ brands, categories, colors }: Props) => {
 
 								<FormControl>
 									<MultiSelect
+										// @ts-ignore
 										values={colors}
 										handleChange={(items: string) =>
 											handleChangeMultipleSelect(items)
@@ -428,13 +427,7 @@ const AddProductForm = ({ brands, categories, colors }: Props) => {
 							{!loading ? (
 								<>Create</>
 							) : (
-								<div>
-									<svg
-										className="animate-spin h-5 w-5 mr-3 ..."
-										viewBox="0 0 24 24"
-									></svg>
-									Processing...
-								</div>
+								<Loader2 className="mr-2 h-4 w-4 animate-spin" />
 							)}
 						</Button>
 					</div>

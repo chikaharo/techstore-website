@@ -16,7 +16,7 @@ interface Order {
 }
 
 interface Category {
-	id: string;
+	_id: string;
 	title: string;
 	createdAt: string;
 }
@@ -31,7 +31,8 @@ interface Product {
 	colors: Color[];
 	price: number;
 	quantity: number;
-	images: Image[];
+	images: ProdImage[];
+	tags?: string;
 	thumbnail: string;
 	ratings: [];
 	totalRating: string;
@@ -45,8 +46,8 @@ interface Color {
 	createdAt?: string;
 }
 
-interface Image {
-	asset_id?: string | null;
+interface ProdImage {
+	asset_id: string;
 	public_id: string;
 	url: string;
 	_id: string;
@@ -57,6 +58,12 @@ interface Cart {
 	color: Color;
 	product: Product;
 	quantity: number;
+}
+
+interface Brand {
+	_id?: string;
+	title: string;
+	createdAt: string;
 }
 
 interface IFilters {
@@ -87,4 +94,9 @@ interface IWard {
 	Id: string;
 	Name: string;
 	Level: string;
+}
+
+interface Tag {
+	title: string;
+	url: string;
 }

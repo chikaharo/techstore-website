@@ -1,5 +1,5 @@
 import { DataTable } from "@/components/ui/data-table";
-import { Category, columns } from "./Column";
+import { columns } from "./Column";
 
 interface Props {
 	categories: Category[];

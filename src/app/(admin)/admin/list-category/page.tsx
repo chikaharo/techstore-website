@@ -1,12 +1,5 @@
 import axios from "@/lib/axios";
-import { Category } from "./_components/Column";
 import ListCategoryClient from "./_components/ListCategoryClient";
-
-export interface RawCategory {
-	_id: string;
-	title: string;
-	createdAt: string;
-}
 
 const getCategories = async () => {
 	const res = await axios.get("/category");
@@ -22,19 +15,14 @@ const getCategories = async () => {
 };
 
 const ListCategory = async () => {
-	const categories: RawCategory[] = await getCategories();
+	const categories: Category[] = await getCategories();
 	if (!categories) return <div>No categories yet</div>;
-	const formattedCategories: Category[] = categories.map((category) => ({
-		id: category._id,
-		title: category.title,
-		createdAt: category.createdAt,
-	}));
 	return (
 		<div className="flex flex-col w-full py-8 px-6">
 			<div className="my-6">
 				<h1 className="font-bold text-3xl">List Categories</h1>
 			</div>
-			<ListCategoryClient categories={formattedCategories} />
+			<ListCategoryClient categories={categories} />
 		</div>
 	);
 };

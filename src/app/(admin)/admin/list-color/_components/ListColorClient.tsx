@@ -1,5 +1,5 @@
 import { DataTable } from "@/components/ui/data-table";
-import { Color, columns } from "./Column";
+import { columns } from "./Column";
 
 interface Props {
 	colors: Color[];

@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { toast } from "sonner";
 import { GetColorName } from "hex-color-to-color-name";
+import { Loader2 } from "lucide-react";
 
 const AddColor = () => {
 	const formSchema = z.object({
@@ -107,7 +108,11 @@ const AddColor = () => {
 					/>
 					<div className="mt-4">
 						<Button disabled={loading} type="submit" variant="default">
-							Create
+							{loading ? (
+								<Loader2 className="mr-2 h-8 w-8 animate-spin" />
+							) : (
+								"Create"
+							)}
 						</Button>
 					</div>
 				</form>

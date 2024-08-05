@@ -1,4 +1,4 @@
-import NextAuth, { DefaultSession } from "next-auth";
+import NextAuth, { DefaultSession, Session, User } from "next-auth";
 
 declare module "next-auth" {
 	/**
@@ -8,10 +8,20 @@ declare module "next-auth" {
 		user: {
 			/** Oauth access token */
 			accessToken?: accessToken;
-		} & DefaultSession["user"];
+		} & SessionUser;
 	}
 
-	interface User extends DefaultUser {
-		role: "admin" | "user";
+	// interface User extends DefaultUser {
+	// 	role: "admin" | "user";
+	// }
+
+	interface SessionUser {
+		user?: {
+			_id?: sring | null;
+			name?: string | null;
+			email?: string | null;
+			role?: string | null;
+		};
+		expires: ISODateString;
 	}
 }

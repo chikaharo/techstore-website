@@ -2,11 +2,6 @@ import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import ProductCard from "./ProductCard";
 
-export interface Tag {
-	title: string;
-	url: string;
-}
-
 interface Props {
 	category: string;
 	tags: Tag[];

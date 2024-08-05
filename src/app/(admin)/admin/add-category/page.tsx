@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import { Loader2 } from "lucide-react";
 
 const AddCategory = () => {
 	const formSchema = z.object({
@@ -77,7 +78,11 @@ const AddCategory = () => {
 					/>
 					<div className="mt-4">
 						<Button disabled={loading} type="submit" variant="default">
-							Create
+							{loading ? (
+								<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+							) : (
+								"Create"
+							)}
 						</Button>
 					</div>
 				</form>

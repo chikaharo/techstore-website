@@ -5,38 +5,9 @@ import ProductHeader from "@/components/ProductHeader";
 import ProductSwiper from "@/components/ProductSwiper";
 import SimilarProducts from "@/components/SimilarProducts";
 import axios from "@/lib/axios";
+import { getProduct, getSimilarProducts } from "@/lib/fetchServices";
 
 const colors = ["Titan đen", "Titan xanh", "Trắng", "Hồng"];
-
-const getProduct = async (slug: string) => {
-	const res = await axios.get(`/product/${slug}`);
-	// The return value is *not* serialized
-	// You can return Date, Map, Set, etc.
-
-	console.log("get product data: ", res.data);
-
-	if (!res.data) {
-		// This will activate the closest `error.js` Error Boundary
-		// throw new Error("Failed to fetch data");
-	}
-
-	return res.data.data;
-};
-
-const getSimilarProducts = async (prodId: string) => {
-	const res = await axios.get(`/product/similar?id=${prodId}`);
-	// The return value is *not* serialized
-	// You can return Date, Map, Set, etc.
-
-	console.log(res.data);
-
-	if (!res.data) {
-		// This will activate the closest `error.js` Error Boundary
-		// throw new Error("Failed to fetch data");
-	}
-
-	return res.data.data.products;
-};
 
 const ProductPage = async ({ params }: { params: { slug: string } }) => {
 	console.log({ slug: params.slug });

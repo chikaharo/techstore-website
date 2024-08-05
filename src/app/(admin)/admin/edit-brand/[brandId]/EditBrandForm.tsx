@@ -14,9 +14,9 @@ import axios from "@/lib/axios";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Brand } from "../../list-brand/_components/Column";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
+import { Loader2 } from "lucide-react";
 
 interface Props {
 	brand: Brand;
@@ -40,7 +40,7 @@ const EditBrandForm = ({ brand }: Props) => {
 		console.log(values);
 		try {
 			setLoading(true);
-			const res = await axios.put(`/brand/${brand.id}`, values);
+			const res = await axios.put(`/brand/${brand._id}`, values);
 			console.log(res.data);
 			if (res.data.status !== "success") {
 				throw new Error("Edit Brand Failed");
@@ -89,7 +89,11 @@ const EditBrandForm = ({ brand }: Props) => {
 					/>
 					<div className="mt-4">
 						<Button disabled={loading} type="submit" variant="default">
-							Update
+							{loading ? (
+								<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+							) : (
+								"Update"
+							)}
 						</Button>
 					</div>
 				</form>
